@@ -48,7 +48,8 @@ public class Main {
 		}
 	}
 	
-	public static void rotate(int[] arr, int order) {
+	public static void rotate(int[] arr, int order) 
+	{
 		order = order % arr.length;
 	 
 		if (arr == null || order < 0) {
