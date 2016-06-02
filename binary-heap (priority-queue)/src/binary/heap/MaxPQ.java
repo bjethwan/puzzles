@@ -1,10 +1,9 @@
 package binary.heap;
-
+@SuppressWarnings("unchecked")
 public class MaxPQ<Key extends Comparable<Key>> {
 
 	private int N;
 	private Key[] pq;
-
 
 	public MaxPQ(int capacity)
 	{
