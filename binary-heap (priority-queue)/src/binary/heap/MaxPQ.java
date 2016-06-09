@@ -7,7 +7,7 @@ public class MaxPQ<Key extends Comparable<Key>> {
 
 	public MaxPQ(int capacity)
 	{
-		pq = (Key[])new Comparable[capacity];
+		pq = (Key[])new Comparable[capacity + 1];
 	}
 
 

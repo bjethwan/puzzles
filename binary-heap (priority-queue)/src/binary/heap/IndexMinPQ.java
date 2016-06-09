@@ -42,6 +42,7 @@ import algs4.cs.princeton.edu.StdOut;
  *
  *  @param <Key> the generic type of key on this priority queue
  */
+@SuppressWarnings("unchecked")
 public class IndexMinPQ<Key extends Comparable<Key>> implements Iterable<Integer> {
     private int maxN;        // maximum number of elements on PQ
     private int N;           // number of elements on PQ
@@ -56,7 +57,9 @@ public class IndexMinPQ<Key extends Comparable<Key>> implements Iterable<Integer
      *         <tt>maxN - 1</tt>
      * @throws IllegalArgumentException if <tt>maxN</tt> &lt; <tt>0</tt>
      */
-    public IndexMinPQ(int maxN) {
+    
+	public IndexMinPQ(int maxN) 
+	{
         if (maxN < 0) throw new IllegalArgumentException();
         this.maxN = maxN;
         keys = (Key[]) new Comparable[maxN + 1];    // make this of length maxN??
@@ -68,9 +71,6 @@ public class IndexMinPQ<Key extends Comparable<Key>> implements Iterable<Integer
 
     /**
      * Returns true if this priority queue is empty.
-     *
-     * @return <tt>true</tt> if this priority queue is empty;
-     *         <tt>false</tt> otherwise
      */
     public boolean isEmpty() {
         return N == 0;
@@ -107,9 +107,13 @@ public class IndexMinPQ<Key extends Comparable<Key>> implements Iterable<Integer
      * @throws IllegalArgumentException if there already is an item associated
      *         with index <tt>i</tt>
      */
-    public void insert(int i, Key key) {
-        if (i < 0 || i >= maxN) throw new IndexOutOfBoundsException();
-        if (contains(i)) throw new IllegalArgumentException("index is already in the priority queue");
+    public void insert(int i, Key key) 
+    {
+        if (i < 0 || i >= maxN) 
+        		throw new IndexOutOfBoundsException();
+        
+        if (contains(i)) 
+        		throw new IllegalArgumentException("index already occupied");
         N++;
         qp[i] = N;
         pq[N] = i;
@@ -260,7 +264,8 @@ public class IndexMinPQ<Key extends Comparable<Key>> implements Iterable<Integer
         return keys[pq[i]].compareTo(keys[pq[j]]) > 0;
     }
 
-    private void exch(int i, int j) {
+    private void exch(int i, int j) 
+    {
         int swap = pq[i];
         pq[i] = pq[j];
         pq[j] = swap;
@@ -272,13 +277,16 @@ public class IndexMinPQ<Key extends Comparable<Key>> implements Iterable<Integer
    /***************************************************************************
     * Heap helper functions.
     ***************************************************************************/
-    private void swim(int k) {
-        while (k > 1 && greater(k/2, k)) {
+    private void swim(int k) 
+    {
+        while (k > 1 && greater(k/2, k)) 
+        {
             exch(k, k/2);
             k = k/2;
         }
     }
 
+    
     private void sink(int k) {
         while (2*k <= N) {
             int j = 2*k;

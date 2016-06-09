@@ -1,33 +1,35 @@
 package sorting;
 
 import algs4.cs.princeton.edu.StdRandom;
-
+@SuppressWarnings("rawtypes")
 public class QuickSort {
 
 	// This class should not be instantiated.
 	private QuickSort(){}
 
+
 	public static void sort(Comparable[] a)
 	{
 		StdRandom.shuffle(a);
 		sort(a, 0, a.length-1);
-		assert isSorted(a);
 	}
 
 	private static void sort(Comparable[] a, int lo, int hi)
 	{
 		if( hi <= lo) return;
+		
 		int j = partition(a, lo, hi);
 		sort(a, lo, j-1);
 		sort(a, j+1, hi);
-		assert isSorted(a, lo, hi);
 	}
 
+	
 	private static int partition(Comparable[] a, int lo, int hi)
 	{
-		int i = lo; 
-		int j = hi + 1;
+		int i = lo, j = hi + 1;
+		
 		Comparable v = a[lo];
+		
 		while(true)
 		{
 			while(less(a[++i], v))
@@ -41,11 +43,9 @@ public class QuickSort {
 			exch(a, i, j);
 		}
 		
-		// put partitioning item v at a[j]
         exch(a, lo, j);
 
-        // now, a[lo .. j-1] <= a[j] <= a[j+1 .. hi]
-        return j;
+        return j;						
 	}
 
 	private static void exch(Object[] a, int i, int j)
