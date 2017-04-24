@@ -3,6 +3,7 @@
 /bin/
 target/
 RemoteSystemsTempFiles/
+/.recommenders/
  
 # OS Files #
 .DS_Store

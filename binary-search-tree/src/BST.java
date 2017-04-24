@@ -39,7 +39,6 @@ public class BST<Key extends Comparable<Key>>
 
 		root = put(root, key);
 	}
-
 	private Node put(Node x, Key key)
 	{
 		if(x == null)
@@ -72,6 +71,7 @@ public class BST<Key extends Comparable<Key>>
 		   print(x.right);
 		   
 		}
+	
 	/**
 	 * Returns the number of key-value pairs in this symbol table.
 	 * @return the number of key-value pairs in this symbol table
@@ -79,7 +79,6 @@ public class BST<Key extends Comparable<Key>>
 	public int size() {
 		return size(root);
 	}
-
 	// return number of key-value pairs in BST rooted at x
 	private int size(Node x) {
 		if (x == null) return 0;

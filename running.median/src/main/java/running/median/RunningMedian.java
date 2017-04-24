@@ -8,6 +8,7 @@ import algs4.cs.princeton.edu.MinPQ;
 /**
  * This implementation is good only when 
  * the number of incoming elements can fit on the available memory.
+ * https://www.youtube.com/watch?v=VmogG01IjYc
  * 
  */
 public class RunningMedian {
@@ -22,52 +23,46 @@ public class RunningMedian {
 		rightMinPq = new MinPQ<>(capaity/2);
 	}
 
-	//This method allows insertion of a key and give you the current median.
+	//This method allows insertion of a key into running median data structure
 	public void  insert(Integer key)
 	{
 		Balance balance = check();
 
 		switch(balance){
-		case EQUAL:
-			if(leftMaxPq.isEmpty())
-			{
-				leftMaxPq.insert(key);
-			}
-			else if(less(key, leftMaxPq.max()))
-			{
-				leftMaxPq.insert(key);
-			}	
-			else
-			{
-				rightMinPq.insert(key);
-			}
-
-			break;
-		case LEFT_HEAVY:
-			if(less(key, leftMaxPq.max()))
-			{
-				leftMaxPq.insert(key);
-				rightMinPq.insert(leftMaxPq.delMax());
-				System.out.print("Balane ");
-			}
-			else
-			{
-				rightMinPq.insert(key);
-			}
-			break;
-		case RIGHT_HEAVY:
-			if(less(key, leftMaxPq.max()))
-			{
-				leftMaxPq.insert(key);
-			}
-			else
-			{
-				rightMinPq.insert(key);
-				leftMaxPq.insert(rightMinPq.delMin());
-				System.out.print("Balane ");
-			}
-
-			break;
+			case EQUAL:
+				if(leftMaxPq.isEmpty() || less(key, leftMaxPq.max()))
+				{
+					leftMaxPq.insert(key);
+				}	
+				else
+				{
+					rightMinPq.insert(key);
+				}
+				break;
+			case LEFT_HEAVY:
+				if(less(key, leftMaxPq.max()))
+				{
+					leftMaxPq.insert(key);
+					rightMinPq.insert(leftMaxPq.delMax());
+					System.out.print("Balance ");
+				}
+				else
+				{
+					rightMinPq.insert(key);
+				}
+				break;
+			case RIGHT_HEAVY:
+				if(less(key, leftMaxPq.max()))
+				{
+					leftMaxPq.insert(key);
+				}
+				else
+				{
+					rightMinPq.insert(key);
+					leftMaxPq.insert(rightMinPq.delMin());
+					System.out.print("Balance ");
+				}
+				break;
 		}
 	}
 
@@ -76,16 +71,18 @@ public class RunningMedian {
 		Balance balance = check();
 
 		switch(balance){
-		case EQUAL:
-			if(leftMaxPq.isEmpty())
-				throw new NoSuchElementException("underflow error");
-			return (double)(leftMaxPq.max() + rightMinPq.min())/(double)2;
-		case LEFT_HEAVY:
-			return leftMaxPq.max();
-		default:
-			return rightMinPq.min();
+			case EQUAL:
+				if(leftMaxPq.isEmpty())
+					throw new NoSuchElementException("underflow error");
+				return (double)(leftMaxPq.max() + rightMinPq.min())/(double)2;
+			case LEFT_HEAVY:
+				return leftMaxPq.max();
+			case RIGHT_HEAVY:
+				return rightMinPq.min();
 
 		}
+		
+		return -1;
 	}
 
 	private Balance check()
@@ -111,6 +108,24 @@ public class RunningMedian {
 			System.out.println(rm.getMedian());
 		}
 	}
+	
+	/*
+	 * 						Input													Median
+	 * 					  (sorting)
+	 * 						  7														  7
+	 * 						1, 7													  4
+	 * 					   1, 1, 7													  1
+	 * 					 1, 1, 2, 7													  1.5
+	 * 				   1, 1, 1, 2, 7												  1
+	 * 				  1, 1, 1, 1, 2, 7												  1
+	 * 				1, 1, 1, 1, 2, 7, 9												  1
+	 *             0, 1, 1, 1, 1, 2, 7, 9											  1
+	 *           0, 0, 1, 1, 1, 1, 2, 7, 9											  1
+	 *         0, 0, 0, 1, 1, 1, 1, 2, 7, 9											  1
+	 *        0, 0, 0, 1, 1, 1, 1, 2, 2, 7, 9	 									  1
+	 *       0, 0, 0, 1, 1, 1, 1, 2, 2, 7, 7, 9										  1
+	 *        
+	 */
 
 
 }
