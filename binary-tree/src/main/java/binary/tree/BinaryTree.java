@@ -32,7 +32,7 @@ public class BinaryTree {
 	/** 
 	   Creates an empty binary tree -- a null root pointer. 
 	 */ 
-	public void BinaryTree() { 
+	public BinaryTree() { 
 		root = null; 
 	} 
 
@@ -42,28 +42,24 @@ public class BinaryTree {
 	   Uses a recursive helper. 
 	 */ 
 	public boolean lookup(int data) { 
-		return(lookup(root, data)); 
+		return lookup(root, data); 
 	} 
-
 
 	/** 
 	   Recursive lookup  -- given a node, recur 
 	   down searching for the given data. 
 	 */ 
-	private boolean lookup(Node node, int data) { 
-		if (node==null) { 
-			return(false); 
-		}
+	private boolean lookup(Node node, int data) {
 
-		if (data==node.data) { 
-			return(true); 
-		} 
-		else if (data<node.data) { 
-			return(lookup(node.left, data)); 
-		} 
-		else { 
-			return(lookup(node.right, data)); 
-		} 
+		if (node==null)  
+			return false; 
+
+		if (data==node.data) 
+			return true; 
+		else if (data < node.data)  
+			return lookup(node.left, data); 
+		else 
+			return lookup(node.right, data); 
 	} 
 
 
@@ -82,20 +78,18 @@ public class BinaryTree {
 	   node pointer (the standard way to communicate 
 	   a changed pointer back to the caller). 
 	 */ 
-	private Node insert(Node node, int data) { 
-		if (node==null) { 
-			node = new Node(data); 
-		} 
-		else { 
+	private Node insert(Node node, int data) {
+		
+		if (node==null){ 
+			node = new Node(data);
+		} else { 
 			if (data <= node.data) { 
 				node.left = insert(node.left, data); 
-			} 
-			else { 
+			} else { 
 				node.right = insert(node.right, data); 
 			} 
 		}
-
-		return(node); // in any case, return the new pointer to the caller 
+		return node;
 	} 
 
 
@@ -118,24 +112,24 @@ public class BinaryTree {
 	 equals the given sum.
 	 Strategy: subtract the node value from the sum when recurring down, 
 	 and check to see if the sum is 0 when you run out of tree. 
-	 
+
 	 Sample: http://www.geeksforgeeks.org/find-the-maximum-sum-path-in-a-binary-tree/
-	 
-	*/ 
+
+	 */ 
 	public boolean hasPathSum(int sum) { 
-	 return( hasPathSum(root, sum) ); 
+		return( hasPathSum(root, sum) ); 
 	}
 
 	boolean hasPathSum(Node node, int sum) { 
-	  // return true if we run out of tree and sum==0 
-	  if (node == null) { 
-	    return(sum == 0); 
-	  } 
-	  else { 
-	  // otherwise check both subtrees 
-	    int subSum = sum - node.data; 
-	    return(hasPathSum(node.left, subSum) || hasPathSum(node.right, subSum)); 
-	  } 
+		// return true if we run out of tree and sum==0 
+		if (node == null) { 
+			return(sum == 0); 
+		} 
+		else { 
+			// otherwise check both subtrees 
+			int subSum = sum - node.data; 
+			return(hasPathSum(node.left, subSum) || hasPathSum(node.right, subSum)); 
+		} 
 	} 
 
 
@@ -143,40 +137,40 @@ public class BinaryTree {
 	 	Given a binary tree, find the maximum path sum. The path may start and end at any node in the tree.
 
 		Example:
-		
+
 		Input: Root of below tree
 		       1
 		      / \
 		     2   3
 		Output: 6
-		
+
 		See below diagram for another example.
 		1+2+3
-		
+
 	 	http://www.geeksforgeeks.org/find-maximum-path-sum-in-a-binary-tree/
 	 * 
 	 */
 	public int findMaxSum(){
-		
+
 		int[] max = {Integer.MIN_VALUE};
-		
+
 		findMaxSum(root, max);
-		
+
 		return max[0];
 	}
-	
+
 	private int findMaxSum(Node node, int[] currentMax){
-		
+
 		if(node == null)
 			return 0;
-		
+
 		int left  = findMaxSum(node.left, currentMax);
 		int right = findMaxSum(node.right, currentMax);
-		
+
 		int singlePathMax = Math.max(node.data, Math.max(left+node.data, right+node.data));
-		
+
 		currentMax[0]= Math.max(currentMax[0], Math.max(left+node.data+right, singlePathMax));
-				
+
 		return singlePathMax;
 	}
 
@@ -232,7 +226,7 @@ public class BinaryTree {
 		root = insert(root, 1); 
 		root = insert(root, 3); 
 	} 
-	
+
 	public void buildHasPathSumTree(){
 		root = new Node(10);
 		root.left = new Node(-2);
@@ -240,7 +234,7 @@ public class BinaryTree {
 		root.left.left = new Node(8);
 		root.left.right = new Node(-4);
 	}
-	
+
 	public void buildTree1ForfindMaxSum(){
 		root = new Node(10);
 		root.left = new Node(2);
@@ -251,12 +245,12 @@ public class BinaryTree {
 		root.right.right.left = new Node(3);
 		root.right.right.right = new Node(4);
 	}
-	
+
 	public void buildTree2ForfindMaxSum(){
 		root = new Node(10);
 		root.right = new Node(-25);
 		root.right.left = new Node(3);
 		root.right.right = new Node(4);
-		
+
 	}
 }

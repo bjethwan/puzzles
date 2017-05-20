@@ -30,8 +30,6 @@ public class BST<Key extends Comparable<Key>>
 			root = put(root, key);
 
 	}
-
-
 	public void put(Key key)
 	{
 		if (key == null) 
@@ -58,6 +56,51 @@ public class BST<Key extends Comparable<Key>>
 		return x;
 	}
 
+
+
+	/*
+	 * Trim Binary Search Tree
+	 * ---------------------------
+	 * 
+	 * Given the root of a binary search tree and 2 numbers min and max, 
+	 * trim the tree such that all the numbers in the new tree,
+	 * are between min and max (inclusive). 
+	 * 
+	 * The resulting tree should still be a valid binary search tree.
+	 * 
+	 */
+	public void trimBST(Key min, Key max){
+		root = trimBST(root, min, max);
+	}
+
+	private Node trimBST(Node node, Key min, Key max){
+		
+		if(node == null)
+			return null;
+
+		node.left = trimBST(node.left, min, max);
+		node.right = trimBST(node.right, min, max);
+
+		if(node.key.compareTo(min) < 0)
+			return node.right;
+		if(node.key.compareTo(max) > 0)
+			return node.left;
+
+		return node;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
 	public void print()
 	{
 		print(root);
@@ -65,13 +108,13 @@ public class BST<Key extends Comparable<Key>>
 	}
 	private void print(Node x) 
 	{
-		   if (x == null) return;
-		   print(x.left);
-		   System.out.print(x.key + " ");
-		   print(x.right);
-		   
-		}
-	
+		if (x == null) return;
+		print(x.left);
+		System.out.print(x.key + " ");
+		print(x.right);
+
+	}
+
 	/**
 	 * Returns the number of key-value pairs in this symbol table.
 	 * @return the number of key-value pairs in this symbol table
@@ -84,20 +127,20 @@ public class BST<Key extends Comparable<Key>>
 		if (x == null) return 0;
 		else return x.N;
 	}
-	
+
 	public boolean isEmpty()
 	{
 		return size() == 0;
 	}
-	
+
 	public Key min()
 	{
 		if(isEmpty())
 			throw new NoSuchElementException("called min() with empty bst");
-		
+
 		return min(root).key;
 	}
-	
+
 	private Node min(Node x)
 	{
 		if(x.left == null) 
@@ -105,15 +148,15 @@ public class BST<Key extends Comparable<Key>>
 		else
 			return min(x.left);
 	}
-	
+
 	public Key max()
 	{
 		if(isEmpty())
 			throw new NoSuchElementException("called max() with empty bst");
-		
+
 		return max(root).key;
 	}
-	
+
 	private Node max(Node x)
 	{
 		if(x.right == null)
@@ -121,38 +164,38 @@ public class BST<Key extends Comparable<Key>>
 		else 
 			return max(x.right);
 	}
-	
+
 	public int height()
 	{
 		return height(root);
 	}
-	
+
 	private int height(Node x)
 	{
 		if(x == null) 
 			return -1;
-		
+
 		return 1 + Math.max(height(x.left), height(x.right));
 	}
-	
+
 	public void mirror()
 	{
 		mirror(root);
 	}
-	
+
 	private void mirror(Node x)
 	{
 		if(x == null) 
 			return;
-		
+
 		mirror(x.left);
 		mirror(x.right);
-		
+
 		Node temp = x.left;
 		x.left = x.right;
 		x.right = temp;
 	}
-	
+
 	public void swap(Key key1, Key key2)
 	{
 		Node p = get(key1);
@@ -161,25 +204,25 @@ public class BST<Key extends Comparable<Key>>
 		p.key = q.key;
 		q.key = temp;
 	}
-	
-//	public  int[] findSwapPositions()
-//	{
-//		Arrays.
-//		for(int i=0;i<N-2;i++)
-//		{
-//			if()
-//		}
-//		
-//	}
-	
+
+	//	public  int[] findSwapPositions()
+	//	{
+	//		Arrays.
+	//		for(int i=0;i<N-2;i++)
+	//		{
+	//			if()
+	//		}
+	//		
+	//	}
+
 	private Node get(Key key)
 	{
 		Node x = root;
-		
+
 		while(x != null)
 		{
 			int cmp = key.compareTo(x.key);
-			
+
 			if(cmp < 0)
 				x = x.left;
 			else if(cmp > 0)
@@ -189,10 +232,10 @@ public class BST<Key extends Comparable<Key>>
 		}
 		return null;
 	}
-	
-	
-	
-	
+
+
+
+
 	public Iterable<Key> keys()
 	{
 		Queue<Key> queue = new Queue<Key>();
@@ -200,7 +243,7 @@ public class BST<Key extends Comparable<Key>>
 		return queue;
 
 	}
-	
+
 	private void keys(Node x, Queue<Key> queue)
 	{
 		if(x == null)
@@ -217,16 +260,16 @@ public class BST<Key extends Comparable<Key>>
 		public BSTInOrderIterator()
 		{
 			stack = new Stack<Node>();
-			
+
 			Node x = root;
-			
+
 			while(x != null)
 			{
 				stack.push(x);
 				x = x.left;
 			}
 		}
-		
+
 		@Override
 		public boolean hasNext() 
 		{	
@@ -238,7 +281,7 @@ public class BST<Key extends Comparable<Key>>
 		{
 			Node x = stack.pop();
 			Key key = x.key;
-			
+
 			x = x.right;
 			while(x!=null)
 			{
@@ -247,6 +290,6 @@ public class BST<Key extends Comparable<Key>>
 			}
 			return key;
 		}
-		
+
 	}
 }
