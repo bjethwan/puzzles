@@ -16,12 +16,12 @@ public class UF {
 		return find(p) == find(q);
 	}
 	public void union(int p, int q){
-		
+
 		int rootP = find(p);				// needed for correctness
 		int rootQ = find(q);				// to reduce the number of array accesses
 
 		if(rootP == rootQ)	return;		// p and q are already in the same component	
-		
+
 		if(size[rootP] < size[rootQ]){	// make smaller root point to larger one
 			parent[rootP] = rootQ;
 			size[rootQ] += size[rootP];
@@ -32,9 +32,11 @@ public class UF {
 		count--;
 	}
 
-	public int find (int p){			/* component identifier for p (0 - N-1) */
-		while(p != parent[p]) 
+	public int find (int p){								/* component identifier for p (0 - N-1) */
+		while(p != parent[p]) {
+			parent[p] = parent[parent[p]];
 			p = parent[p];
+		}
 		return p;
 	}
 

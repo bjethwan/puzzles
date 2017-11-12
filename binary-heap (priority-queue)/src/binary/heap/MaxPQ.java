@@ -17,14 +17,6 @@ public class MaxPQ<Key extends Comparable<Key>> {
 		swim(N);
 	}
 
-	private void swim(int k) 
-	{
-		while(k > 1 && less(k/2, k))
-		{
-			exch(k, k/2);
-			k = k/2;
-		}
-	}
 
 	public Key delMax()
 	{
@@ -34,6 +26,16 @@ public class MaxPQ<Key extends Comparable<Key>> {
 		pq[N+1] = null;
 		return max;
 	}
+
+	private void swim(int k) 
+	{
+		while(k > 1 && less(k/2, k))
+		{
+			exch(k, k/2);
+			k = k/2;
+		}
+	}
+	
 	
 	private void sink(int k)
 	{

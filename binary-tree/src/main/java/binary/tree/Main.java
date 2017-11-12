@@ -2,7 +2,7 @@ package binary.tree;
 
 public class Main {
 	public static void main(String[] args) {
-		testFindMaxSum();
+		testTopView();
 	}
 	
 	public static void testFindMaxSum(){
@@ -23,5 +23,11 @@ public class Main {
 		System.out.println(binaryTree.hasPathSum(16));
 		System.out.println(binaryTree.hasPathSum(19));
 		System.out.println(binaryTree.hasPathSum(10));
+	}
+	
+	public static void testTopView(){
+		BinaryTree binaryTree = new BinaryTree();
+		binaryTree.buildTree2ForPrintTopView();
+		binaryTree.printTopView();
 	}
 }

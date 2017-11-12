@@ -1,5 +1,9 @@
 package binary.tree;
 
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
+
 /*
  * http://cslibrary.stanford.edu/110/BinaryTrees.html#java
  * 
@@ -29,6 +33,7 @@ public class BinaryTree {
 		} 
 	}
 
+	
 	/** 
 	   Creates an empty binary tree -- a null root pointer. 
 	 */ 
@@ -193,6 +198,42 @@ public class BinaryTree {
 		printTree(node.right); 
 	} 
 
+	
+	public void printTopView(){
+		printTopView(root);
+	}
+	
+	private void printTopView(Node node){
+		
+		if (node==null)
+			return;
+		
+		class QueueItem{
+			Node n;
+			int hd;
+			QueueItem(Node n, int hd){
+				this.n = n;
+				this.hd = hd;
+			}
+		}
+		
+		HashSet<Integer> set = new HashSet<>();
+		Queue<QueueItem> q = new LinkedList<>();
+		q.add(new QueueItem(node, 0));
+		
+		while(!q.isEmpty()){
+			QueueItem x = q.remove();
+			
+			if(!set.contains(x.hd)){				
+				//This is topmost node then, as we are doing level-order tree processing
+				System.out.printf("%d ", x.n.data);
+				set.add(x.hd);
+			}
+			
+			if(x.n.left!=null) q.add(new QueueItem(x.n.left, x.hd - 1));
+			if(x.n.right!=null) q.add(new QueueItem(x.n.right, x.hd + 1));
+		}
+	}
 
 
 	/** 
@@ -252,5 +293,28 @@ public class BinaryTree {
 		root.right.left = new Node(3);
 		root.right.right = new Node(4);
 
+	}
+	
+	public void buildTree1ForPrintTopView(){
+		root = new Node(1);
+		root.left = new Node(2);
+		root.right = new Node(3);
+		
+		root.left.left = new Node(4);
+		root.left.right = new Node(5);
+		
+		root.right.left = new Node(6);
+		root.right.right = new Node(7);
+	}
+	
+	public void buildTree2ForPrintTopView(){
+		root = new Node(1);
+		root.left = new Node(2);
+		root.right = new Node(3);
+		
+		root.left.right = new Node(4);
+		root.left.right.right = new Node(5);
+		root.left.right.right.right = new Node(6);
+		
 	}
 }

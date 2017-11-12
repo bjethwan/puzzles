@@ -23,6 +23,7 @@ public class BSTM<Key extends Comparable<Key>, Value> implements Iterable<Key>
 	public Value get(Key key)
 	{
 		Node x = root;
+		
 		while(x!=null)
 		{
 			int cmp = key.compareTo(x.key);
@@ -38,15 +39,28 @@ public class BSTM<Key extends Comparable<Key>, Value> implements Iterable<Key>
 		return null;
 	}
 
+// Recurcive as given on http://algs4.cs.princeton.edu/32bst/BST.java.html
+//	
+//	public Value get(Key key) {
+//        return get(root, key);
+//    }
+//
+//    private Value get(Node x, Key key) {
+//        if (key == null) throw new IllegalArgumentException("called get() with a null key");
+//        if (x == null) return null;
+//        int cmp = key.compareTo(x.key);
+//        if      (cmp < 0) return get(x.left, key);
+//        else if (cmp > 0) return get(x.right, key);
+//        else              return x.val;
+//    }
+    
+    
 	public void put(Key key, Value value)
-	{
-		root = put(root, key, value);
-	}
+	{	root = put(root, key, value);	}
 
 	private Node put(Node x, Key key, Value value)
 	{
-		if(x == null)
-			return new Node(key, value);
+		if(x == null) return new Node(key, value);
 
 		int cmp = key.compareTo(x.key);
 
