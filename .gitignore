@@ -4,7 +4,8 @@
 target/
 RemoteSystemsTempFiles/
 /.recommenders/
- 
+.recommenders/
+
 # OS Files #
 .DS_Store
  

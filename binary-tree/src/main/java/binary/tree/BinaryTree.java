@@ -1,7 +1,9 @@
 package binary.tree;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 /*
@@ -10,7 +12,10 @@ import java.util.Queue;
  */
 
 public class BinaryTree { 
-	// Root node pointer. Will be null for an empty tree. 
+
+	/*
+	 *  Root node pointer. Will be null for an empty tree. 
+	 */
 	private Node root; 
 
 	/* 
@@ -22,25 +27,74 @@ public class BinaryTree {
 	   storage; it does not have any methods. 
 	 */ 
 	private static class Node { 
+		int data;
 		Node left; 
 		Node right; 
-		int data;
 
 		Node(int newData) { 
-			left = null; 
-			right = null; 
 			data = newData; 
 		} 
 	}
 
-	
-	/** 
-	   Creates an empty binary tree -- a null root pointer. 
+	/* 
+	 * Creates an empty binary tree -- a null root pointer. 
 	 */ 
 	public BinaryTree() { 
 		root = null; 
 	} 
 
+	/*
+	 * Find path to a given key in a binary tree (no order).
+	 */
+	public List<Integer> findPath(int x){
+		List<Integer> path = new ArrayList<>();
+		findPath(root, x, path);
+		return path;
+	}
+
+	private boolean findPath(Node node, int x, List<Integer> path){
+
+		if(node == null)
+			return false;
+
+		path.add(node.data);
+
+		if(node.data == x)
+			return true;
+
+		if(node.left!=null && findPath(node.left, x, path) )
+			return true;
+
+		if(node.right!=null && findPath(node.right, x, path))
+			return true;
+
+		path.remove(path.size()-1);
+
+		return false;
+	}
+
+	/*
+	 * Least Common Ancestor
+	 */
+	public int lca(int x, int y){
+		return lca(root, x, y);
+	}
+
+	private int lca(Node node, int x, int y){
+		List<Integer> xpath = new ArrayList<>();
+		List<Integer> ypath = new ArrayList<>();
+
+		if(findPath(root, x, xpath) 
+				&& findPath(root, y, ypath)){
+			int i;
+			int len = Math.min(xpath.size(), ypath.size());
+			for(i=0; i<len; i++)
+				if(xpath.get(i) != ypath.get(i))
+					break;
+			return xpath.get(i-1);
+		}else
+			throw new IllegalArgumentException("One of the keys not found in tree.");
+	}
 
 	/** 
 	   Returns true if the given target is in the binary tree. 
@@ -316,5 +370,26 @@ public class BinaryTree {
 		root.left.right.right = new Node(5);
 		root.left.right.right.right = new Node(6);
 		
+	}
+	
+	public void buildTreeForFindPathInBinaryTree(){
+		
+		root = new Node(1);
+		
+		//1
+		root.left = new Node(2);
+		root.right = new Node(3);
+		
+		//2
+		root.left.left = new Node(4);
+		root.left.right = new Node(5);
+		
+		//3
+		root.right.left = new Node(6);
+		root.right.right = new Node(7);
+		
+		//5
+		root.left.right.left = new Node(8);
+		root.left.right.right = new Node(9);
 	}
 }

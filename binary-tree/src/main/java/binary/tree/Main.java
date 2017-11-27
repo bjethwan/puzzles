@@ -2,7 +2,7 @@ package binary.tree;
 
 public class Main {
 	public static void main(String[] args) {
-		testTopView();
+		testLCA();
 	}
 	
 	public static void testFindMaxSum(){
@@ -23,6 +23,28 @@ public class Main {
 		System.out.println(binaryTree.hasPathSum(16));
 		System.out.println(binaryTree.hasPathSum(19));
 		System.out.println(binaryTree.hasPathSum(10));
+	}
+	
+	public static void testFindPath(){
+		BinaryTree binaryTree = new BinaryTree();
+		binaryTree.buildTreeForFindPathInBinaryTree();
+		
+		System.out.println(binaryTree.findPath(90));
+		System.out.println(binaryTree.findPath(7));
+		System.out.println(binaryTree.findPath(5));
+		System.out.println(binaryTree.findPath(9));
+	}
+	
+	public static void testLCA(){
+		BinaryTree binaryTree = new BinaryTree();
+		binaryTree.buildTreeForFindPathInBinaryTree();
+		
+		System.out.println(binaryTree.lca(4, 9)); //2
+		System.out.println(binaryTree.lca(5, 6)); //1
+		System.out.println(binaryTree.lca(4, 5)); //2
+		System.out.println(binaryTree.lca(2, 4)); //2
+		System.out.println(binaryTree.lca(1, 5)); //1
+		System.out.println(binaryTree.lca(0, 7)); //Exception
 	}
 	
 	public static void testTopView(){
