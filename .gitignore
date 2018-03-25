@@ -3,11 +3,11 @@
 /bin/
 target/
 RemoteSystemsTempFiles/
-/.recommenders/
 .recommenders/
 
 # OS Files #
 .DS_Store
+.recommenders/index/http___download_eclipse_org_recommenders_models_mars_/segments.gen
  
 *.class
  

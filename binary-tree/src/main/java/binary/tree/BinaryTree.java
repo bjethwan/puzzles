@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.List;
 
 /*
  * http://cslibrary.stanford.edu/110/BinaryTrees.html#java
@@ -30,9 +31,11 @@ public class BinaryTree {
 		int data;
 		Node left; 
 		Node right; 
-
+		
 		Node(int newData) { 
 			data = newData; 
+			left = null; 
+			right = null; 
 		} 
 	}
 
@@ -391,5 +394,18 @@ public class BinaryTree {
 		//5
 		root.left.right.left = new Node(8);
 		root.left.right.right = new Node(9);
+	
+	public void buildTreeForFindPath(){
+		root = new Node(1);
+		
+		root.left = new Node(2);
+		root.right = new Node(3);
+		
+		root.left.left = new Node(4);
+		root.left.right = new Node(5);
+		
+		root.right.left = new Node(6);
+		root.right.right = new Node(7);
+		
 	}
 }

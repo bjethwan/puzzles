@@ -2,7 +2,9 @@ package binary.tree;
 
 public class Main {
 	public static void main(String[] args) {
+
 		testLCA();
+		testFindPath();
 	}
 	
 	public static void testFindMaxSum(){
@@ -51,5 +53,23 @@ public class Main {
 		BinaryTree binaryTree = new BinaryTree();
 		binaryTree.buildTree2ForPrintTopView();
 		binaryTree.printTopView();
+		binaryTree.buildTreeForFindPath();
+		
+		System.out.println(binaryTree.findPath(6));
+		System.out.println(binaryTree.findPath(7));
+		
+		System.out.println(binaryTree.lca(6, 7));
+		
+		
+		System.out.println(binaryTree.findPath(5));
+		System.out.println(binaryTree.findPath(6));
+		
+		System.out.println(binaryTree.lca(6, 5));
+		
+		
+		System.out.println(binaryTree.findPath(1));
+		System.out.println(binaryTree.findPath(6));
+		
+		System.out.println(binaryTree.lca(6, 1));
 	}
 }
